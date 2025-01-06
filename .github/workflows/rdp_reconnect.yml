@@ -1,17 +1,30 @@
-import pyautogui
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 import time
-import webbrowser
 
-# فتح المتصفح والذهاب إلى GitHub
-webbrowser.open('https://github.com/login')
+# تحديد مكان WebDriver
+driver_path = '/path/to/chromedriver'  # استبدل بالمسار الصحيح لـ chromedriver
+driver = webdriver.Chrome(executable_path=driver_path)
+
+# فتح صفحة تسجيل الدخول إلى GitHub
+driver.get('https://github.com/login')
 
 # الانتظار حتى يتم تحميل الصفحة
+time.sleep(2)
+
+# العثور على حقول الإدخال وكتابة اسم المستخدم وكلمة المرور
+username_field = driver.find_element(By.ID, 'login_field')
+password_field = driver.find_element(By.ID, 'password')
+
+username_field.send_keys('YourUsername')  # استبدل باسم المستخدم
+password_field.send_keys('YourPassword')  # استبدل بكلمة المرور
+
+# الضغط على زر تسجيل الدخول
+password_field.send_keys(Keys.RETURN)
+
+# الانتظار قليلاً حتى يتم تسجيل الدخول
 time.sleep(3)
 
-# كتابة اسم المستخدم (استبدل بقيمتك)
-pyautogui.write('YourUsername')  # استبدل بـ اسم المستخدم الخاص بك
-pyautogui.press('tab')  # الانتقال إلى حقل كلمة المرور
-
-# كتابة كلمة المرور (استبدل بقيمتك)
-pyautogui.write('YourPassword')  # استبدل بكلمة المرور الخاصة بك
-pyautogui.press('enter')  # الضغط على زر الدخول
+# إغلاق المتصفح
+driver.quit()
