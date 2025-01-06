@@ -1,25 +1,17 @@
 import pyautogui
 import time
+import webbrowser
 
-# انتظر قليلاً قبل تنفيذ الإجراءات
-time.sleep(2)
+# فتح المتصفح والذهاب إلى GitHub
+webbrowser.open('https://github.com/login')
 
-# فتح نافذة RDP
-pyautogui.hotkey('win', 'r')  # اختصار لفتح نافذة "تشغيل"
-pyautogui.write('mstsc')
-pyautogui.press('enter')
+# الانتظار حتى يتم تحميل الصفحة
+time.sleep(3)
 
-# الانتظار حتى تظهر نافذة RDP
-time.sleep(2)
-
-# إدخال عنوان الـ IP أو اسم الكمبيوتر
-pyautogui.write('192.168.1.100')  # استبدل بـ عنوان IP للجهاز البعيد
-pyautogui.press('tab')  # الانتقال إلى حقل اسم المستخدم
-
-# إدخال اسم المستخدم
-pyautogui.write('YourUsername')  # استبدل باسم المستخدم الخاص بك
+# كتابة اسم المستخدم (استبدل بقيمتك)
+pyautogui.write('YourUsername')  # استبدل بـ اسم المستخدم الخاص بك
 pyautogui.press('tab')  # الانتقال إلى حقل كلمة المرور
 
-# إدخال كلمة المرور
-pyautogui.write('YourPassword')  # استبدل بكلمة المرور
-pyautogui.press('enter')  # الضغط على Enter لتسجيل الدخول
+# كتابة كلمة المرور (استبدل بقيمتك)
+pyautogui.write('YourPassword')  # استبدل بكلمة المرور الخاصة بك
+pyautogui.press('enter')  # الضغط على زر الدخول
