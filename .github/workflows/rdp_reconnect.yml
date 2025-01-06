@@ -1,30 +1,25 @@
-name: RDP Reconnect Workflow
+import pyautogui
+import time
 
-on:
-  schedule:
-    - cron: '*/10 * * * *'  # هذا سيشغل السكربت كل 10 دقائق
-  push:
-    branches:
-      - main  # تشغيل السكربت عند التحديثات في الفرع الرئيسي
+# انتظر قليلاً قبل تنفيذ الإجراءات
+time.sleep(2)
 
-jobs:
-  rdp_reconnect:
-    runs-on: ubuntu-latest  # اختر بيئة لينكس
+# فتح نافذة RDP
+pyautogui.hotkey('win', 'r')  # اختصار لفتح نافذة "تشغيل"
+pyautogui.write('mstsc')
+pyautogui.press('enter')
 
-    steps:
-    - name: Check out the repository
-      uses: actions/checkout@v2
+# الانتظار حتى تظهر نافذة RDP
+time.sleep(2)
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'  # تحديد الإصدار المناسب من Python
+# إدخال عنوان الـ IP أو اسم الكمبيوتر
+pyautogui.write('192.168.1.100')  # استبدل بـ عنوان IP للجهاز البعيد
+pyautogui.press('tab')  # الانتقال إلى حقل اسم المستخدم
 
-    - name: Install dependencies
-      run: |
-        sudo apt update
-        sudo apt install -y xrdp python3-pip  # تثبيت الأدوات اللازمة
+# إدخال اسم المستخدم
+pyautogui.write('YourUsername')  # استبدل باسم المستخدم الخاص بك
+pyautogui.press('tab')  # الانتقال إلى حقل كلمة المرور
 
-    - name: Run RDP reconnect script
-      run: |
-        python3 rdp_reconnect.py  # تشغيل السكربت (تأكد من أن السكربت موجود في نفس المجلد)
+# إدخال كلمة المرور
+pyautogui.write('YourPassword')  # استبدل بكلمة المرور
+pyautogui.press('enter')  # الضغط على Enter لتسجيل الدخول
