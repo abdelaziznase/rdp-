@@ -1,0 +1,30 @@
+name: RDP Reconnect Workflow
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'  # هذا سيشغل السكربت كل 10 دقائق
+  push:
+    branches:
+      - main  # تشغيل السكربت عند التحديثات في الفرع الرئيسي
+
+jobs:
+  rdp_reconnect:
+    runs-on: ubuntu-latest  # اختر بيئة لينكس
+
+    steps:
+    - name: Check out the repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'  # تحديد الإصدار المناسب من Python
+
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y xrdp python3-pip  # تثبيت الأدوات اللازمة
+
+    - name: Run RDP reconnect script
+      run: |
+        python3 rdp_reconnect.py  # تشغيل السكربت (تأكد من أن السكربت موجود في نفس المجلد)
